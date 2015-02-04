@@ -1,0 +1,4 @@
+cmake_minimum_required(VERSION 2.8.4)
+project(leecode)
+add_subdirectory(3nPlus1)
+add_subdirectory(Minesweeper)
