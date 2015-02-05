@@ -40,29 +40,54 @@ Field #2:
 // 用到了一个小技巧，设置边界数组 bounds，将当前的点顺次加上边界数组的值即可得到当前点周围的 8 个
 // 点，注意不要忘记判断点是否在地雷地图范围内。
 #include <iostream>
-
+#include <cstring>
 using namespace std;
+#define MAXSIZE 100
+bool inrange(int rows, int cols, int x, int y)
+{
+    return (x>=0 && x<rows) && (y>=0 && y <cols);
+}
+void display(char input[][MAXSIZE], int rows, int cols)
+{
+    int boundary[8][2] = {{-1,-1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+    for(int i=0; i<rows; i++){
+        for(int j=0; j<cols; j++){
+            if(input[i][j] == '*')
+                cout << '*';
+            else{
+                int mines = 0;
+                int m, n;
+                for(int k=0; k < 8; k++){
+                    m = i+boundary[k][0];
+                    n = j+boundary[k][1];
+                    if(inrange(rows, cols, m, n) && input[m][n] == '*'){
+                        mines += 1;
+                    }
+                }
+                cout << mines;
+            }
+        }
 
+        cout << endl;
+    }
+
+}
 int main() {
 
     int rows, cols;
-    cin >> rows >> cols;
-    cout << rows << " " << cols << endl;
-    char input[rows][cols];
-    for(int i=0; i<rows; i++){
-        for(int j=0; j<cols; j++){
-            cin >> input[i][j];
+    while(cin >> rows >> cols) {
+        if(!rows && !cols){
+            break;
         }
-    }
-    for(int i=0; i<rows; i++){
-        for(int j=0; j<cols; j++){
-            int count = 0;
-            if(i == 0){
-
+        cout << rows << " " << cols << endl;
+        char input[MAXSIZE][MAXSIZE];
+        memset(input, 0, sizeof(input));
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                cin >> input[i][j];
             }
-            cout << input[i][j];
         }
-        cout << endl;
-    }
+        display(input, rows, cols);
+   }
     return 0;
 }
