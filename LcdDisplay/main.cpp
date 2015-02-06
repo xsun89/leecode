@@ -1,7 +1,5 @@
 #include <iostream>
 #include <cstring>
-#include <iostream>
-#include <cstring>
 
 using namespace std;
 
@@ -9,22 +7,17 @@ using namespace std;
 
 void lcd_display (long size, long number)
 {
-    // 将number拆分为单个的数字。
     int digits[MAXLENGTH];
-
-    memset (digits, -1, sizeof (digits));
-    if (number == 0)
+    memset(digits, -1, sizeof(digits));
+    if(number == 0) {
         digits[MAXLENGTH - 1] = 0;
-    else
-    {
-        for (int i = MAXLENGTH - 1; number > 0; i--)
-        {
+    }
+    else {
+        for (int i = MAXLENGTH - 1; i >= 0 && number > 0; i--) {
             digits[i] = number % 10;
             number /= 10;
         }
     }
-
-    // 定义每个数字的关键笔划。
     string outline[5][10] = {
             " - ", "   ", " - ", " - ", "   ", " - ", " - ", " - ", " - ", " - ",
             "| |", "  |", "  |", "  |", "| |", "|  ", "|  ", "  |", "| |", "| |",
@@ -61,8 +54,10 @@ void lcd_display (long size, long number)
                 if (i < (MAXLENGTH - 1))
                     cout << " ";
             }
-        cout << '\n';
+
+        cout << endl;
     }
+
 }
 
 int main (int ac, char *av[])
