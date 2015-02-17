@@ -7,3 +7,6 @@ add_subdirectory(LcdDisplay)
 add_subdirectory(GraphicalEditor)
 add_subdirectory(Interpreter)
 add_subdirectory(CheckTheCheck)
+add_subdirectory(AustralianVoting)
+add_subdirectory(Jolly)
+

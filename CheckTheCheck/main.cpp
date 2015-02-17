@@ -31,7 +31,7 @@ bool checkB(int i, int j, int kingX, int kingY){
         while(step>0){
             currentX += directX;
             currentY += directY;
-            if(status[currentX][currentY] != -1){
+            if(status[currentX][currentY] != '.'){
                checked = false;
                 break;
             }
@@ -40,6 +40,33 @@ bool checkB(int i, int j, int kingX, int kingY){
     }
 
     return checked;
+}
+
+bool checkR(int i, int j, int kingX, int kingY){
+    int step, currentX=i, currentY=j, directX, directY;
+    bool checked = false;
+    if(i==kingX || j==kingY){
+        checked = true;
+        step = abs(i-kingX) > 0 ? abs(i-kingX) : abs(j-kingY);
+        directY = (j==kingY) ? (0) : (j<kingY? 1:-1);
+        directX = (i==kingX) ? (0) : (i<kingX? 1:-1);
+        while(step > 0) {
+            currentY += directY;
+            currentX += directX;
+            if (status[currentX][currentY] != '.') {
+                checked = false;
+                break;
+            }
+            step--;
+        }
+    }
+
+    return checked;
+}
+
+bool checkQ(int i, int j, int kingX, int kingY)
+{
+    return checkR(i, j, kingX, kingY) || checkB(i, j, kingX, kingY);
 }
 void check(int gameCount)
 {
@@ -82,6 +109,20 @@ void check(int gameCount)
                     break;
                 case 'B':
                     bChecked = checkB(i, j, bKingX, bKingY);
+                    break;
+                case 'r':
+                    wChecked = checkR(i, j, wKingX, wKingY);
+                    break;
+                case 'R':
+                    bChecked = checkR(i, j, bKingX, bKingY);
+                    break;
+                case 'q':
+                    wChecked = checkQ(i, j, wKingX, wKingY);
+                    break;
+                case 'Q':
+                    bChecked = checkQ(i, j, bKingX, bKingY);
+                    break;
+                default:
                     break;
 
             }
