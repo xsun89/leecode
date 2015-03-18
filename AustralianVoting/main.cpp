@@ -67,7 +67,7 @@ int main (int ac, char *av[])
         while((getline(cin, line), line.length()>0)){
             choices[voteNum++] = line;
         }
-        voting(ncandidates, candidate, choices);
+        //voting(ncandidates, candidate, choices);
         current++;
     }
     return 0;
