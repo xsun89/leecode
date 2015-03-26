@@ -10,4 +10,5 @@ add_subdirectory(Interpreter)
 add_subdirectory(CheckTheCheck)
 add_subdirectory(AustralianVoting)
 add_subdirectory(Jolly)
-
+add_subdirectory(JollyJumpers)
+add_subdirectory(PokerHands)
