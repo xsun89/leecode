@@ -32,6 +32,51 @@ char derank_suit(int number){
 char derank_value(int number){
     return values[number/NSUITS];
 }
+
+void clear_queue(std::queue<int>* a, std::queue<int>* b)
+{
+    while (!a->empty()){
+        int tmp = a->front();
+        a->pop();
+        b->push(tmp);
+    }
+}
+void war(std::queue<int> *a, std::queue<int> *b) {
+    int steps = 0;
+    int x, y;
+    std::queue<int> c;
+    bool inwar;
+    inwar = false;
+    while ((!a->empty()) && (!b->empty() && (steps < 10000))) {
+        steps = steps + 1;
+        x = a->front();
+        a->pop();
+        y = b->front();
+        b->pop();
+        c.push(x);
+        c.push(y);
+        if (inwar) {
+            inwar = false;
+        } else {
+            if (derank_value(x) > derank_value(y))
+                clear_queue(&c, a);
+            else if (derank_value(x) < derank_value(y))
+                clear_queue(&c, b);
+            else if (derank_value(y) == derank_value(x))
+                inwar = true;
+        }
+    }
+    if (!a->empty() && b->empty())
+        printf("a wins in %d steps \n", steps);
+    else if (a->empty() && !b->empty())
+        printf("b wins in %d steps \n", steps);
+    else if (!a->empty() && !b->empty())
+        printf("game tied after %d steps, |a|=%d |b|=%d \n",
+                steps, a->size(), b->size());
+    else
+        printf("a and b tie in %d steps \n", steps);
+}
+
 int main()
 {
     std::queue<int>  deck[2];
@@ -53,7 +98,7 @@ int main()
             }
         }
 
-        //war(&deck[0], &deck[1]);
+        war(&deck[0], &deck[1]);
     }
     return 0;
 }
